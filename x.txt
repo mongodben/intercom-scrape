@@ -1,0 +1,51 @@
+To use the updateOne method in MongoDB, you can follow the syntax and examples provided in the MongoDB documentation. The updateOne method is used to update a single document within a collection based on a specified filter. Here's a basic overview of how to use it, including an example:
+
+Basic Syntax
+db.collection.updateOne(
+   <filter>,
+   <update>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>,
+     arrayFilters: [ <filterdocument1>, ... ],
+     hint:  <document|string>
+   }
+)
+
+Parameters
+
+<filter>: The selection criteria for the update. Use this to specify which document to update.
+
+<update>: The modifications to apply. This uses MongoDB's update operators like $set.
+
+upsert: Optional. If set to true, creates a new document when no document matches the query criteria.
+
+writeConcern: Optional. The level of acknowledgment requested from MongoDB for write operations.
+
+collation: Optional. Specifies the collation to use for the operation.
+
+arrayFilters: Optional. A list of filters specifying which array elements an update should apply.
+
+hint: Optional. An index to use for the query.
+
+Example: Updating a Document
+Consider you have a sales collection and you want to increment the quantity field by 1 for the document with _id equal to 1. Here's how you could do it:
+
+use("test");
+db.sales.updateOne(
+  { "_id" : 1},
+  { $inc: { "quantity" : 1 }}
+);
+
+When you run this operation, MongoDB for VS Code will output the result, showing the number of documents matched and modified. For the given example, the output might look like this:
+
+{
+  acknowleged: 1,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0,
+  insertedId: null
+}
+
+This indicates that the operation was acknowledged by the server, one document was matched by the filter, and the quantity field of that document was successfully incremented by 1.
